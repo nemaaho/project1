@@ -2,6 +2,7 @@ from django.http import Http404
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views import generic
 
@@ -16,6 +17,7 @@ from .models import Choice, Question
         #"""Return the last five published questions."""
         #return Question.objects.order_by('-pub_date')[:5]
 
+@login_required
 def indexView(request):
     question = get_object_or_404(Question, pk=1)
     context = {
@@ -32,6 +34,7 @@ class DetailView(generic.DetailView):
     #model = Question
     #template_name = 'webapp/results.html'
 
+@login_required
 def resultsView(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     next_question = Question.objects.filter(id__gt=question_id).order_by('id').first()
@@ -43,7 +46,7 @@ def resultsView(request, question_id):
 
     return render(request, 'webapp/results.html', context)
 
-
+@login_required
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -57,3 +60,7 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse('webapp:results', args=(question.id,)))
+
+@login_required
+def lastView(request):
+    return render(request, 'webapp/last.html')

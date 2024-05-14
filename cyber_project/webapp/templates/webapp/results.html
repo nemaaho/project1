@@ -6,7 +6,9 @@
 {% endfor %}
 </ul>
 
-<a href="{% url 'webapp:detail' question.id %}">Vote again?</a>
+
 {% if next_question %}
     <a href="{% url 'webapp:detail' next_question.id %}">Next question →</a>
+{% else %}
+    <a href="{% url 'webapp:lastpage' %}">See the results</a>
 {% endif %}

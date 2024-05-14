@@ -1,8 +1,15 @@
 <h2>Polls</h2>
 
+<h3>First poll</h3>
 <button>
     <a href="{% url 'webapp:detail' question.id %}">Start poll</a>
 </button>
+
+<h3>Second poll</h3>
+<button>
+    <a href="{% url 'webapp:detail' question.id %}">Start poll</a>
+</button>
+
 <h3>Questions:</h3>
 
 {% if latest_question_list %}

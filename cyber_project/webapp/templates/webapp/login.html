@@ -1,0 +1,7 @@
+<h2>Welcome to do polls!</h2>
+<h2>First, log in:</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>

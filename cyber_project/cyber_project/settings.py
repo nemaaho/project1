@@ -55,7 +55,7 @@ ROOT_URLCONF = 'cyber_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +69,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'cyber_project.wsgi.application'
+
+LOGIN_URL = ''
+LOGIN_REDIRECT_URL = '/home/'
+#LOGIN_URL = '/login/'
+#LOGIN_REDIRECT_URL = '/'
+SESSION_COOKIE_SAMESITE = None
 
 
 # Database
