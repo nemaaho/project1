@@ -1,5 +1,20 @@
 <h1>The poll ends here</h1>
 
-<h2>Here are the results:</h2>
+<h2>Here are your answers:</h2>
+
+{% if combined_list %}
+    <ul>
+    {% for question, answer in combined_list %}
+        <li>{{ question.question_text }}</li>
+            <ul>
+                <li> Your answer: {{ answer}}</li>
+            </ul>
+    {% endfor %}
+    </ul>
+
+{% else %}
+    <h3>You did not answer any questions</h3>
+{% endif %}
+
 
 <a href="{% url 'webapp:logoutpage' %}">Log out</a>

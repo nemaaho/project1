@@ -9,13 +9,15 @@ from django.views import generic
 from .models import Choice, Question
 
 
-#class IndexView(generic.ListView):
-    #template_name = 'webapp/index.html'
-    #context_object_name = 'latest_question_list'
+class IndexView(generic.ListView):
+    template_name = 'webapp/index.html'
+    context_object_name = 'latest_question_list'
 
-    #def get_queryset(self):
-        #"""Return the last five published questions."""
-        #return Question.objects.order_by('-pub_date')[:5]
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return Question.objects.order_by('-pub_date')[:5]
+
+resultslist = []
 
 @login_required
 def indexView(request):
@@ -30,11 +32,11 @@ class DetailView(generic.DetailView):
     template_name = 'webapp/detail.html'
 
 
-#class ResultsView(generic.DetailView):
-    #model = Question
-    #template_name = 'webapp/results.html'
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'webapp/results.html'
 
-@login_required
+#@login_required
 def resultsView(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     next_question = Question.objects.filter(id__gt=question_id).order_by('id').first()
@@ -46,11 +48,12 @@ def resultsView(request, question_id):
 
     return render(request, 'webapp/results.html', context)
 
-@login_required
+#@login_required
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
+        resultslist.append(selected_choice)
     except (KeyError, Choice.DoesNotExist):
         return render(request, 'webapp/detail.html', {
             'question': question,
@@ -61,6 +64,16 @@ def vote(request, question_id):
         selected_choice.save()
         return HttpResponseRedirect(reverse('webapp:results', args=(question.id,)))
 
-@login_required
+#@login_required
 def lastView(request):
-    return render(request, 'webapp/last.html')
+    latest_question_list = Question.objects.all()
+    combined_list = []
+    for question, answer in zip(latest_question_list, resultslist):
+        combined_list.append((question, answer))
+
+    context = {
+        #'latest_question_list' : latest_question_list,
+        #'resultslist' : resultslist,
+        'combined_list' : combined_list,
+    }
+    return render(request, 'webapp/last.html', context)
