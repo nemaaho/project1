@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'webapp.middleware.SessionTimeoutMiddleware',
 ]
 
 ROOT_URLCONF = 'cyber_project.urls'
@@ -75,6 +76,8 @@ LOGIN_REDIRECT_URL = '/home/'
 #LOGIN_URL = '/login/'
 #LOGIN_REDIRECT_URL = '/'
 SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_AGE = 10
+SESSION_SAVE_EVERY_REQUEST = True
 
 
 # Database
