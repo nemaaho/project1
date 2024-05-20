@@ -5,8 +5,6 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views import generic
-from django.shortcuts import render, redirect
-
 
 from .models import Choice, Question
 
@@ -38,7 +36,7 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'webapp/results.html'
 
-@login_required
+#@login_required
 def resultsView(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     next_question = Question.objects.filter(id__gt=question_id).order_by('id').first()
@@ -50,7 +48,7 @@ def resultsView(request, question_id):
 
     return render(request, 'webapp/results.html', context)
 
-@login_required
+#@login_required
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -66,7 +64,7 @@ def vote(request, question_id):
         selected_choice.save()
         return HttpResponseRedirect(reverse('webapp:results', args=(question.id,)))
 
-@login_required
+#@login_required
 def lastView(request):
     latest_question_list = Question.objects.all()
     combined_list = []
