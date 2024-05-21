@@ -3,6 +3,9 @@ from django.contrib.auth import views as auth_views
 from . import views
 from django.contrib.auth.views import LoginView, LogoutView
 
+
+
+
 app_name = 'webapp'
 urlpatterns = [
     path('', LoginView.as_view(template_name='webapp/login.html')),
@@ -13,5 +16,6 @@ urlpatterns = [
     #path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
     path('<int:question_id>/results/', views.resultsView, name='results'),
     path('<int:question_id>/vote/', views.vote, name='vote'),
-    path('last/', views.lastView, name='lastpage')
+    path('last/', views.lastView, name='lastpage'),
+    path('password/', views.PasswordsChangeView.as_view(template_name='webapp/password.html'), name='password'),
 ]
