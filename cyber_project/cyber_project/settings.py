@@ -72,9 +72,10 @@ WSGI_APPLICATION = 'cyber_project.wsgi.application'
 
 LOGIN_URL = ''
 LOGIN_REDIRECT_URL = '/home/'
-#LOGIN_URL = '/login/'
-#LOGIN_REDIRECT_URL = '/'
 SESSION_COOKIE_SAMESITE = None
+
+
+
 
 
 # Database
@@ -97,12 +98,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 10,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+    {
+        'NAME': 'webapp.validators.PasswordValidator1',
+    },
+    {
+        'NAME': 'webapp.validators.PasswordValidator2',
     },
 ]
 

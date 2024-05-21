@@ -82,5 +82,5 @@ def lastView(request):
 
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangeForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('webapp:login')
 

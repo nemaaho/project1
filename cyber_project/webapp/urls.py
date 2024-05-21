@@ -8,7 +8,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 app_name = 'webapp'
 urlpatterns = [
-    path('', LoginView.as_view(template_name='webapp/login.html')),
+    path('', LoginView.as_view(template_name='webapp/login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logoutpage'),
     #path('', views.IndexView.as_view(), name='index'),
     path('home/', views.indexView, name='index'),
