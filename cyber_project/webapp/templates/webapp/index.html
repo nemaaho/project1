@@ -1,13 +1,14 @@
+<h1>Hello {{ user.get_username }}!</h1>
 <h2>Polls</h2>
 
-<h3>First poll</h3>
+<h3>Your daily mood poll</h3>
 <button>
     <a href="{% url 'webapp:detail' question.id %}">Start poll</a>
 </button>
 
-<h3>Second poll</h3>
-<button>
-    <a href="{% url 'webapp:detail' question.id %}">Start poll</a>
-</button>
 
+<h4>Preferences</h4>
+<div style="display: flex; flex-direction: column;">
+<a href="{% url 'webapp:username' %}">Change your username</a>
 <a href="{% url 'webapp:password' %}">Change your password</a>
+</div>

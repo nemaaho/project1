@@ -18,4 +18,5 @@ urlpatterns = [
     path('<int:question_id>/vote/', views.vote, name='vote'),
     path('last/', views.lastView, name='lastpage'),
     path('password/', views.PasswordsChangeView.as_view(template_name='webapp/password.html'), name='password'),
+    path('username/', views.changeUsername, name='username'),
 ]

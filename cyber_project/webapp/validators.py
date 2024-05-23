@@ -11,7 +11,7 @@ class PasswordValidator1():
             raise ValidationError(_('Password must contain at least %(min_length)d special character.') % {'min_length': self.min_length})
 
     def get_help_text(self):
-        return "Password must contain at least 1 special character (~\!\#\%\&\+\:\;\*\@)."
+        return "Your password must contain at least one special character (~\!\#\%\&\+\:\;\*\@)."
 
 class PasswordValidator2():
     def __init__(self, min_length=1):
@@ -22,4 +22,4 @@ class PasswordValidator2():
             raise ValidationError (_('Password must contain at least 1 upper letter.') % {'min_length':self.min_length})
 
     def get_help_text(self):
-        return "Password must contain at least 1 upper letter."
+        return "Your password must contain at least one upper letter."

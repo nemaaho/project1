@@ -1,12 +1,16 @@
 from django.http import Http404
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.forms import PasswordChangeForm
+from django import forms
+from django.contrib.auth.models import User
+#from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from .models import Choice, Question
 
@@ -23,7 +27,7 @@ resultslist = []
 
 @login_required
 def indexView(request):
-    question = get_object_or_404(Question, pk=1)
+    question = get_object_or_404(Question, pk=4)
     context = {
         'question' : question,
     }
@@ -74,13 +78,36 @@ def lastView(request):
         combined_list.append((question, answer))
 
     context = {
-        #'latest_question_list' : latest_question_list,
-        #'resultslist' : resultslist,
         'combined_list' : combined_list,
     }
     return render(request, 'webapp/last.html', context)
 
+#class PasswordsChangeView(LoginRequiredMixin, PasswordChangeView):
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangeForm
     success_url = reverse_lazy('webapp:login')
 
+
+#class UsernameChangeForm(LoginRequiredMixin, forms.ModelForm):
+class UsernameChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username']
+
+#@login_required
+def cleanUsername(self):
+    username = self.cleaned_data.get('username')
+    if User.objects.filter(username=username).exists():
+        raise forms.ValidationError("This username is already taken.")
+    return username
+
+#@login_required
+def changeUsername(request):
+    if request.method == 'POST':
+        form = UsernameChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('webapp:login') 
+    else:
+        form = UsernameChangeForm(instance=request.user)
+    return render(request, 'webapp/username.html', {'form': form})

@@ -23,9 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-sd2(@bw9nu4g1+qybjcs7bsali!w(x#u$%5qp)fbzhj*otobzy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+DEBUG = True
+#DEBUG = False
+
+ALLOWED_HOSTS = [
+    #'*'
+]
 
 
 # Application definition
@@ -44,10 +48,10 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'cyber_project.urls'
@@ -98,9 +102,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-        'OPTIONS': {
-            'min_length': 10,
-        }
+        #'OPTIONS': {
+            #'min_length': 10,
+        #}
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -108,12 +112,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-    {
-        'NAME': 'webapp.validators.PasswordValidator1',
-    },
-    {
-        'NAME': 'webapp.validators.PasswordValidator2',
-    },
+    #{
+        #'NAME': 'webapp.validators.PasswordValidator1',
+    #},
+    #{
+        #'NAME': 'webapp.validators.PasswordValidator2',
+    #},
 ]
 
 
